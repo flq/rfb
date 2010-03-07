@@ -6,4 +6,4 @@
     // This one a dir will be made of.
     $bar = Bang Bop
     @stuff = $(iisOutDir)\**\*.*
-    MakeDir "This_$(bar);plonk"
+    MakeDir "This_$(bar).plonk"
