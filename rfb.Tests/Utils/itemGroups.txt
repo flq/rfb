@@ -1,0 +1,4 @@
+﻿Project "Default stuff"
+  @Foo = Bar.Baz;Boo
+  Target "Default" -Depends:Deps
+    @Bar = Baz.Boz;Kafoodle

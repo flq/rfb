@@ -1,0 +1,6 @@
+﻿Project "Main"
+    
+  Target "Prepare"
+    A "A"
+    B "B"
+    C "C" -Option:Configuration=Release

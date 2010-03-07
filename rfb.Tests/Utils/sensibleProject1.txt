@@ -1,0 +1,9 @@
+﻿Project "Default"
+  UsingTask -TaskName:CompileSparkView -AssemblyFile:lib/Rf.Sites.Build.dll
+  // This variable controls the forces of evil
+  $Foo = Bar Baz
+  Target "Default" -Depends:Deps
+    // This one a dir will be made of.
+    $bar = Bang Bop
+    @stuff = $(iisOutDir)\**\*.*
+    MakeDir "This_$(bar);plonk"

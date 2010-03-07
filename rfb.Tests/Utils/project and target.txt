@@ -1,0 +1,3 @@
+﻿Project "Default stuff"
+  $Foo = Bar Baz
+  Target "Default" -Depends:Deps
