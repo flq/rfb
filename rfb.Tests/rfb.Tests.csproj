@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Utils\rfSiteBuildScript.generated.txt" />
+    <EmbeddedResource Include="Utils\node with default needs escaping.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

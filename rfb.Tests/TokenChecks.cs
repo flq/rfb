@@ -30,6 +30,16 @@ namespace rfb.Tests
     }
 
     [Test]
+    public void NodeWithOptionsEscapesDefault()
+    {
+      var handle = new TokenizerHandle(DataMother.GetFile("node with default needs escaping.txt"));
+      handle.FastForwardToLine(1);
+      var t = handle.ProcessWithToken<ProjectToken>();
+      t["Default"].ShouldBeEqualTo("Default stuff \" Hoho");
+      t.Options.Count.ShouldBeEqualTo(4);
+    }
+
+    [Test]
     public void DefaultOptionMapping()
     {
       var handle = new TokenizerHandle(DataMother.NodeWithOptionsVariantB());
