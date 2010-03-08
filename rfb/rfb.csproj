@@ -58,6 +58,7 @@
     <Compile Include="StandardDefaultValueResolver.cs" />
     <Compile Include="Token\AbstractDefinedValueToken.cs" />
     <Compile Include="Token\AnyToken.cs" />
+    <Compile Include="Token\BacktickToken.cs" />
     <Compile Include="Token\CommentToken.cs" />
     <Compile Include="Token\ImportProjectToken.cs" />
     <Compile Include="Token\ItemGroupToken.cs" />

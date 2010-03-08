@@ -1,0 +1,3 @@
+﻿Project "Default stuff"
+  Target "X"
+    `echo y| cacls %(Binaries.Identity) /G everyone:R

@@ -7,3 +7,4 @@
     $bar = Bang Bop
     @stuff = $(iisOutDir)\**\*.*
     MakeDir "This_$(bar).plonk"
+    `cd hello/world

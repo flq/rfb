@@ -20,7 +20,8 @@ namespace rfb
           {"RemoveDir", "Directories"},
           {"MakeDir", "Directories"},
           {"Delete", "Files"},
-          {"MsBuild", "Projects"}
+          {"MsBuild", "Projects"},
+          {"Exec", "Command"}
         };
 
     public void Normalize(TokenWithOptions token)

@@ -17,6 +17,7 @@ namespace rfb.Tests
     public int VisitedCommentToken;
     public int VisitedUsingTaskToken;
     public int VisitedImportProjectToken;
+    public int VisitedBacktick;
 
     public void Visit(ProjectToken token)
     {
@@ -42,6 +43,13 @@ namespace rfb.Tests
     public void Visit(ImportProjectToken token)
     {
       VisitedImportProjectToken++;
+      TotalCount++;
+      Tokens.Add(token);
+    }
+
+    public void Visit(BacktickToken token)
+    {
+      VisitedBacktick++;
       TotalCount++;
       Tokens.Add(token);
     }

@@ -59,6 +59,16 @@ namespace rfb
       // Need to think some here...
     }
 
+    public void Visit(BacktickToken token)
+    {
+      if (currentTarget == null)
+        throw new InvalidOperationException("Unexpected exec command outside of target scope");
+
+      currentTarget
+        .AddNewTask("Exec")
+        .SetParameterValue("Command", token.BackTickValue);
+    }
+
     public void Visit(AnyToken token)
     {
       if (currentTarget == null)

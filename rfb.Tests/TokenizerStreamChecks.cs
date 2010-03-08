@@ -16,11 +16,12 @@ namespace rfb.Tests
       var t = "sensibleProject1.txt".Tokenized();
       var vtor = new AssertingTokenStreamVisitor();
       t.Accept(vtor);
-      vtor.TotalCount.ShouldBeEqualTo(9);
+      vtor.TotalCount.ShouldBeEqualTo(10);
       vtor.VisitedProjectToken.ShouldBeEqualTo(1);
       vtor.VisitedUsingTaskToken.ShouldBeEqualTo(1);
       vtor.VisitedTargetToken.ShouldBeEqualTo(1);
       vtor.VisitedVariableToken.ShouldBeEqualTo(2);
+      vtor.VisitedBacktick.ShouldBeEqualTo(1);
     }
 
     [Test]

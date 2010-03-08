@@ -40,6 +40,15 @@ namespace rfb.Tests
     }
 
     [Test]
+    public void BacktickTokenWorks()
+    {
+      var handle = new TokenizerHandle(DataMother.GetFile("backtick check.txt"));
+      handle.FastForwardToLine(3);
+      var t = handle.ProcessWithToken<BacktickToken>();
+      t.BackTickValue.ShouldBeEqualTo("echo y| cacls %(Binaries.Identity) /G everyone:R");
+    }
+
+    [Test]
     public void DefaultOptionMapping()
     {
       var handle = new TokenizerHandle(DataMother.NodeWithOptionsVariantB());

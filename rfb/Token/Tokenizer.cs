@@ -21,6 +21,7 @@ namespace rfb.Token
                    new VariableToken(),
                    new ItemGroupToken(),
                    new CommentToken(),
+                   new BacktickToken(),
                    new AnyToken()
                  };
     }
