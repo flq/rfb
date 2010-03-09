@@ -51,12 +51,16 @@ namespace rfb.Tests.Utils
       return loadFile(file);
     }
 
+    public static Stream GetStream(string name)
+    {
+      return typeof(DataMother).Assembly
+        .GetManifestResourceStream(typeof(DataMother), name);
+    }
+
     private static string loadFile(string name)
     {
-      var stream = typeof(DataMother).Assembly
-        .GetManifestResourceStream(typeof(DataMother), name);
+      Stream stream = GetStream(name);
       var sr = new StreamReader(stream);
-
       return sr.ReadToEnd();
     }
   }

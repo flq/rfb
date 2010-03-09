@@ -31,7 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accessibility" />
     <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\nunit.framework.dll</HintPath>
@@ -50,15 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssertingTokenStreamVisitor.cs" />
+    <Compile Include="Utils\AssertingMsBuildLogger.cs" />
+    <Compile Include="Utils\AssertingTokenStreamVisitor.cs" />
     <Compile Include="ProjectBuilderChecks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptRunningChecks.cs" />
     <Compile Include="TokenChecks.cs" />
     <Compile Include="TokenizerHandleChecks.cs" />
     <Compile Include="TokenizerStreamChecks.cs" />
     <Compile Include="MsBuildProjectBuilderChecks.cs" />
     <Compile Include="Utils\AssertExtensions.cs" />
     <Compile Include="Utils\DataMother.cs" />
+    <Compile Include="Utils\ScriptRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Utils\emptyproject.txt" />
@@ -94,6 +99,8 @@
     <EmbeddedResource Include="Utils\rfSiteBuildScript.generated.txt" />
     <EmbeddedResource Include="Utils\node with default needs escaping.txt" />
     <EmbeddedResource Include="Utils\backtick check.txt" />
+    <EmbeddedResource Include="Utils\_scriptWithMessage.txt" />
+    <EmbeddedResource Include="Utils\_scriptWithVarOutput.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

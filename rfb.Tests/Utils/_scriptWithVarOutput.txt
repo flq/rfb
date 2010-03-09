@@ -1,0 +1,6 @@
+﻿Project "Default"
+  $Foo=No way Jose
+  $Bar=Ditto, Fernando
+  Target "Default"
+    Message "$(Foo)"
+    Message "$(Bar)"

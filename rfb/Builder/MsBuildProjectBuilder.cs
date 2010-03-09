@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Build.BuildEngine;
 using rfb.Token;
 
@@ -22,13 +23,13 @@ namespace rfb
     public MsBuildProjectBuilder(IDefaultValueResolver valueResolver, Engine engine)
     {
       this.valueResolver = valueResolver;
-      this.engine = engine;
+      Project = new Project(engine, "3.5");
     }
 
     public void Visit(ProjectToken token)
     {
       valueResolver.Normalize(token);
-      Project = new Project(engine,"3.5") {DefaultTargets = token["DefaultTargets"]};
+      Project.DefaultTargets = token["DefaultTargets"];
     }
 
     public void Visit(TargetToken token)

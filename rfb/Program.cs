@@ -13,6 +13,9 @@ namespace rfb
         new OptionSet
           {
             {"b|build=", "The build script to run", v => setup.BuildFile = v},
+            {"t|target=", "The target to execute", v => setup.Target = v},
+            {"p|property=", "Properties you want to pass into the script", v => setup.Property = v},
+            {"l|logger=", "Fully qualified typename to a logger you want to use", v => setup.LoggerType = v},
             {"h|help", "Shows the usage help", v => showHelp = true}
           };
       try

@@ -15,6 +15,11 @@ namespace rfb
     {
       this.setup = setup;
       engine = new Engine();
+      if (setup.LoggerType != null)
+      {
+        var logger = (ILogger) Activator.CreateInstance(setup.LoggerAsType);
+        engine.RegisterLogger(logger);
+      }
       engine.RegisterLogger(new ConsoleLogger(LoggerVerbosity.Minimal));
     }
 
@@ -25,12 +30,18 @@ namespace rfb
 
     public void Run()
     {
-      using (var tr = File.OpenText(setup.BuildFile))
+      using (var tr = new StreamReader(setup.BuildData))
       {
         var builder = new MsBuildProjectBuilder(new StandardDefaultValueResolver(), engine);
         var tokenizer = new Tokenizer(tr);
         tokenizer.Accept(builder);
-        engine.BuildProject(builder.Project);
+        if (setup.HasProperties)
+          foreach (var p in setup.Properties)
+            builder.Project.SetProperty(p.Key, p.Value);
+        if (setup.Target != null)
+          engine.BuildProject(builder.Project, setup.Target);
+        else
+          engine.BuildProject(builder.Project);
       }
     }
   }

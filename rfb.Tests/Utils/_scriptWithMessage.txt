@@ -1,0 +1,5 @@
+﻿Project "Default"
+  Target "Default"
+    Message "Hello from Default"
+  Target "B"
+    Message "Hello from B"
