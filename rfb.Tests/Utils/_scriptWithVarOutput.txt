@@ -1,4 +1,4 @@
-﻿Project "Default"
+﻿﻿Project "Default"
   $Foo=No way Jose
   $Bar=Ditto, Fernando
   Target "Default"

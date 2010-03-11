@@ -1,0 +1,6 @@
+﻿Project "Default"
+  
+  @theGroup = 1;2;3
+  
+  Target "Default"
+    Message "%(theGroup.Identity)"

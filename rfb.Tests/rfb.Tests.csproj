@@ -42,6 +42,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -52,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PSChecks.cs" />
     <Compile Include="Utils\AssertingMsBuildLogger.cs" />
     <Compile Include="Utils\AssertingTokenStreamVisitor.cs" />
     <Compile Include="ProjectBuilderChecks.cs" />
@@ -101,6 +106,8 @@
     <EmbeddedResource Include="Utils\backtick check.txt" />
     <EmbeddedResource Include="Utils\_scriptWithMessage.txt" />
     <EmbeddedResource Include="Utils\_scriptWithVarOutput.txt" />
+    <EmbeddedResource Include="Utils\_scriptWithPowershell.txt" />
+    <EmbeddedResource Include="Utils\_scriptWithIteration.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

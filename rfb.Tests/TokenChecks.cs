@@ -116,5 +116,17 @@ namespace rfb.Tests
       t.VariableName.ShouldBeEqualTo("Foo");
       t.Value.ShouldBeEqualTo("Bar Baz");
     }
+
+    [Test]
+    public void PowershellScriptToken()
+    {
+      var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershell.txt"));
+      handle.FastForwardToLine(7);
+      var t = handle.ProcessWithToken<PsScriptToken>();
+      t.ScriptName.ShouldBeEqualTo("smallPNGs");
+      t.Script.IndexOf("Get-ChildItem").ShouldBeSmallerThan(5);
+      t.Script.Contains("FullName").ShouldBeTrue();
+      t.Terminator.ShouldBeEqualTo("END");
+    }
   }
 }

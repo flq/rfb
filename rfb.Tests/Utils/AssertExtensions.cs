@@ -26,6 +26,11 @@ namespace rfb.Tests.Utils
       Assert.IsTrue(target.CompareTo(other) > 0, "{0} is not bigger than {1}", target, other);
     }
 
+    public static void ShouldBeSmallerThan<T>(this T target, T other) where T : IComparable<T>
+    {
+      Assert.IsTrue(target.CompareTo(other) < 0, "{0} is not smaller than {1}", target, other);
+    }
+
     public static void ShouldHaveLength(this Array array, int expectedCount)
     {
       Assert.AreEqual(

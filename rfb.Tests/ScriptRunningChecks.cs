@@ -27,6 +27,17 @@ namespace rfb.Tests
     }
 
     [Test]
+    public void AForeachLoopInAScript()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithIteration.txt")
+        .Run();
+      runner.Logged("1").ShouldBeTrue();
+      runner.Logged("2").ShouldBeTrue();
+      runner.Logged("3").ShouldBeTrue();
+    }
+
+    [Test]
     public void SetupAllowsToPassInProperties()
     {
       var runner = new ScriptRunner()
