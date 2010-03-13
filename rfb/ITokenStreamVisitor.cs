@@ -13,5 +13,8 @@ namespace rfb
     void Visit(ItemGroupToken token);
     void Visit(VariableToken token);
     void Visit(CommentToken token);
+    void Visit(PsScriptToken token);
+    void Visit(PSWithReturnValueToken token);
+    void Visit(EndToken token);
   }
 }

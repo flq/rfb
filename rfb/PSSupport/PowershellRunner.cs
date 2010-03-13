@@ -11,9 +11,20 @@ namespace rfb.PSSupport
   public class PowershellRunner : IDisposable
   {
     private readonly Runspace runSpace;
-    public PowershellRunner()
+
+    private static PowershellRunner me;
+
+    public static PowershellRunner Me
     {
-      runSpace = RunspaceFactory.CreateRunspace(); 
+      get
+      {
+        return me ?? (me = new PowershellRunner());
+      }
+    }
+    
+    private PowershellRunner()
+    {
+      runSpace = RunspaceFactory.CreateRunspace();
       runSpace.Open();
     }
 
@@ -23,12 +34,6 @@ namespace rfb.PSSupport
       var cmd = new Command(script, true);
       p.Commands.Add(cmd);
       return p.Invoke();
-    }
-
-    private void addCommand(string script, Pipeline p)
-    {
-      var cmd = new Command(script);
-      p.Commands.Add(cmd);
     }
 
     public void Dispose()

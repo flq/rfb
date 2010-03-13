@@ -124,7 +124,7 @@ namespace rfb.Tests
       handle.FastForwardToLine(7);
       var t = handle.ProcessWithToken<PsScriptToken>();
       t.ScriptName.ShouldBeEqualTo("smallPNGs");
-      t.Script.IndexOf("Get-ChildItem").ShouldBeSmallerThan(5);
+      t.Script.IndexOf("echo").ShouldBeSmallerThan(5);
       t.Script.Contains("FullName").ShouldBeTrue();
       t.Terminator.ShouldBeEqualTo("END");
     }

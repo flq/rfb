@@ -8,3 +8,10 @@
     @stuff = $(iisOutDir)\**\*.*
     MakeDir "This_$(bar).plonk"
     `cd hello/world
+    $jiggle <= blaBlub
+    @joggle <= blaBlub
+  
+  PS "blaBlub" <<FIN
+    echo "Hello World"
+    "jones"
+  FIN

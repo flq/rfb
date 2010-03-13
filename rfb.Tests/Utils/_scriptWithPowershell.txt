@@ -1,11 +1,13 @@
 ﻿Project "Default"
   
   Target "Default"
-    @files <= smallPNGs
-    Message "%(files.Identity)"
+    @files <= smallPNGs -Capture:FullName, Extension
+    Message "%(files.Identity) and extension %(files.Extension)"
     
   PS "smallPNGs" <<END
-   Get-ChildItem -Recurse | 
-   Where-Object { $_.Extension -eq ".png" -and $_.Length -lt 7000 } | 
-   select FullName
+    echo "Returning small pngs"
+    cd C:\users\flq\Documents
+    Get-ChildItem -Recurse | 
+    Where-Object { $_.Extension -eq ".png" -and $_.Length -lt 7000 } | 
+    select FullName, Extension
   END

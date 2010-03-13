@@ -54,7 +54,7 @@ namespace rfb.Token
 
     public override void Accept(ITokenStreamVisitor visitor)
     {
-      
+      visitor.Visit(this);
     }
   }
 }

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using rfb.Tests.Utils;
+using System.Linq;
 
 namespace rfb.Tests
 {
@@ -46,6 +47,15 @@ namespace rfb.Tests
         .Run();
       runner.Logged("Baz").ShouldBeTrue();
       runner.Logged("Alice").ShouldBeTrue();
+    }
+
+    [Test]
+    public void ConnectingItemGroupToPSOutput()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithPowershell.txt")
+        .Run();
+      runner.Logger.LoggedMessages.Count(m=>m.EndsWith(".png")).ShouldBeGreaterThan(10);
     }
   }
 }

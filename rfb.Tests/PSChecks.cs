@@ -4,12 +4,12 @@ using rfb.Tests.Utils;
 
 namespace rfb.Tests
 {
-  [TestFixture]
+  [TestFixture,Ignore]
   public class PSChecks
   {
-    private readonly PowershellRunner r = new PowershellRunner();
+    private readonly PowershellRunner r = PowershellRunner.Me;
 
-    [Test]
+    [Test,Ignore]
     public void ItIsPossibleToExecuteAScript()
     {
       var objects = r.InvokeScript("$a = $env:path; $a.Split(\";\")");

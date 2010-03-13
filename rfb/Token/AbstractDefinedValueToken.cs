@@ -14,6 +14,7 @@ namespace rfb.Token
       VariableName = m.Groups[1].Captures[0].Value.Trim(' ');
       Value = m.Groups[2].Captures[0].Value.Trim(' ');
       tHandle.CurrentHandled();
+      withinHandle(tHandle);
       return this;
     }
 
@@ -21,6 +22,8 @@ namespace rfb.Token
     public string VariableName { get; protected set; }
 
     protected abstract Regex matchRegEx { get; }
+
+    protected virtual void withinHandle(TokenizerHandle tHandle) {}
 
     protected override void reset()
     {

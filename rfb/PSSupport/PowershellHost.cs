@@ -6,39 +6,41 @@ namespace rfb
 {
   public class PowershellHost : PSHost
   {
+    
+
     public override void SetShouldExit(int exitCode)
     {
-      throw new NotImplementedException();
+      
     }
 
     public override void EnterNestedPrompt()
     {
-      throw new NotImplementedException();
+      throw new NotImplementedException("Nested prompt not supported by rfb PS Host");
     }
 
     public override void ExitNestedPrompt()
     {
-      throw new NotImplementedException();
+      throw new NotImplementedException("Nested prompt not supported by rfb PS Host");
     }
 
     public override void NotifyBeginApplication()
     {
-      throw new NotImplementedException();
+      
     }
 
     public override void NotifyEndApplication()
     {
-      throw new NotImplementedException();
+      
     }
 
     public override string Name
     {
-      get { throw new NotImplementedException(); }
+      get { return "rfb PS Host"; }
     }
 
     public override Version Version
     {
-      get { throw new NotImplementedException(); }
+      get { return new Version(1, 0, 0, 0); }
     }
 
     public override Guid InstanceId

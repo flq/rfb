@@ -18,6 +18,9 @@ namespace rfb.Tests
     public int VisitedUsingTaskToken;
     public int VisitedImportProjectToken;
     public int VisitedBacktick;
+    public int VisitedPsScriptToken;
+    public int VisitedPSWithReturnValueToken;
+    public int VisitedEndToken;
 
     public void Visit(ProjectToken token)
     {
@@ -78,6 +81,27 @@ namespace rfb.Tests
     public void Visit(CommentToken token)
     {
       VisitedCommentToken++;
+      TotalCount++;
+      Tokens.Add(token);
+    }
+
+    public void Visit(PsScriptToken token)
+    {
+      VisitedPsScriptToken++;
+      TotalCount++;
+      Tokens.Add(token);
+    }
+
+    public void Visit(PSWithReturnValueToken token)
+    {
+      VisitedPSWithReturnValueToken++;
+      TotalCount++;
+      Tokens.Add(token);
+    }
+
+    public void Visit(EndToken token)
+    {
+      VisitedEndToken++;
       TotalCount++;
       Tokens.Add(token);
     }

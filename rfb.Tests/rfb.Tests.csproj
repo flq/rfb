@@ -108,6 +108,7 @@
     <EmbeddedResource Include="Utils\_scriptWithVarOutput.txt" />
     <EmbeddedResource Include="Utils\_scriptWithPowershell.txt" />
     <EmbeddedResource Include="Utils\_scriptWithIteration.txt" />
+    <EmbeddedResource Include="Utils\_scriptManyTasksWithOptions.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

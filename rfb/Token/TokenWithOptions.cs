@@ -7,7 +7,7 @@ namespace rfb.Token
 {
   public abstract class TokenWithOptions : AbstractToken, IEnumerable<KeyValuePair<string,string>>
   {
-    protected readonly static Regex startWord = new Regex(@"^\s*(\w+?)\s", RegexOptions.Compiled);
+    protected readonly static Regex startWord = new Regex(@"^\s*(\w+?)(?=\s|$)", RegexOptions.Compiled);
     private readonly static Regex defaultOption = new Regex(@"""(.+?)(?<!\\)""", RegexOptions.Compiled);
     private readonly static Regex optionFinder = new Regex(@"-(\w+?):(.+?)(?=-|$)", RegexOptions.Compiled);
 
@@ -23,12 +23,14 @@ namespace rfb.Token
 
     protected override AbstractToken handle(TokenizerHandle handle)
     {
-      if (handle.CurrentLineMatches(matchCondition))
-      {
-        completeTokenization(handle);
-        return this;
-      }
-      return null;
+      if (handle.IsCurrentHandled)
+        return null;
+
+      if (!handle.CurrentLineMatches(matchCondition))
+        return null;
+
+      completeTokenization(handle);
+      return this;
     }
 
     protected void completeTokenization(TokenizerHandle tHandle)
@@ -71,7 +73,10 @@ namespace rfb.Token
       if (tHandle.CurrentLine == null)
         return 0;
 
-      if (!isAStartingWordOK && startWord.IsMatch(tHandle.CurrentLine))
+      // Option syntax may appear behind a variable that captures PSScript output
+      if (!isAStartingWordOK && 
+        (startWord.IsMatch(tHandle.CurrentLine) || 
+         KnownRegularExpressions.CapturingVariableMatch.IsMatch(tHandle.CurrentLine)))
         return 0;
 
       var matches = optionFinder.Matches(tHandle.CurrentLine);

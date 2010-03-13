@@ -1,0 +1,6 @@
+﻿Project "Main"
+    
+  Target "Prepare"
+    A -OptionA:Foo
+    B -OptionB:Bar,Baz
+    C -OptionC:Beng

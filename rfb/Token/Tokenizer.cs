@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -17,8 +18,10 @@ namespace rfb.Token
                  {
                    new ProjectToken(),
                    new TargetToken(),
+                   new PsScriptToken(),
                    new UsingTaskToken(),
                    new VariableToken(),
+                   new PSWithReturnValueToken(),
                    new ItemGroupToken(),
                    new CommentToken(),
                    new BacktickToken(),
@@ -55,6 +58,7 @@ namespace rfb.Token
           shouldBeKnockedOut = false;
         }
       }
+      yield return new EndToken();
     }
 
     public void Accept(ITokenStreamVisitor vtor)

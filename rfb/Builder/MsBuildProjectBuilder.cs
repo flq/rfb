@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Build.BuildEngine;
+using rfb.Builder;
 using rfb.Token;
 
 namespace rfb
@@ -8,10 +9,18 @@ namespace rfb
   public class MsBuildProjectBuilder : ITokenStreamVisitor
   {
     private readonly IDefaultValueResolver valueResolver;
-    private readonly Engine engine;
 
     private BuildPropertyGroup currentPropertyGroup;
     private Target currentTarget;
+    private PsScriptJanitor scriptJanitor;
+
+    private PsScriptJanitor ScriptJanitor
+    {
+      get
+      {
+        return scriptJanitor ?? (scriptJanitor = new PsScriptJanitor());
+      }
+    }
 
 
     public Project Project { get; private set;}
@@ -118,6 +127,23 @@ namespace rfb
     public void Visit(CommentToken token)
     {
       // Nothing to be done
+    }
+
+    public void Visit(PsScriptToken token)
+    {
+      ScriptJanitor.AddScript(token);
+    }
+
+    public void Visit(PSWithReturnValueToken token)
+    {
+      if (currentTarget == null)
+        throw new InvalidOperationException("Unexpected PS value assignment outside of a target");
+      ScriptJanitor.AddScriptTask(currentTarget.AddNewTask("RunScript"), token);
+    }
+
+    public void Visit(EndToken token)
+    {
+      ScriptJanitor.MopUp(Project);
     }
 
     private static void getAndDo(
