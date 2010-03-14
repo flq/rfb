@@ -25,10 +25,10 @@ namespace rfb.Tests
       vtor.VisitedPsScriptToken.ShouldBeEqualTo(1);
       vtor.VisitedPSWithReturnValueToken.ShouldBeEqualTo(2);
       vtor.Tokens.OfType<PSWithReturnValueToken>()
-        .SingleOrDefault(v=>v.ValueType == PSWithReturnValueToken.ReturnValueType.Property)
+        .SingleOrDefault(v=>v.ValueType == PSScriptReturnValueType.Property)
         .ShouldNotBeNull();
       vtor.Tokens.OfType<PSWithReturnValueToken>()
-        .SingleOrDefault(v => v.ValueType == PSWithReturnValueToken.ReturnValueType.ItemGroup)
+        .SingleOrDefault(v => v.ValueType == PSScriptReturnValueType.ItemGroup)
         .ShouldNotBeNull();
       vtor.Tokens.Last().ShouldBeOfType<EndToken>();
     }

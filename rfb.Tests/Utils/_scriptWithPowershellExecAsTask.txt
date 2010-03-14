@@ -1,0 +1,10 @@
+﻿Project "Default"
+  
+  Target "Default"
+    PS:MakeFile
+    Message "created"
+    
+  PS:MakeFile <<END
+    cd $env:temp
+    new-item -path "testtest.tst" -itemtype file -force
+  END

@@ -1,0 +1,9 @@
+﻿Project "Default"
+  
+  Target "Default"
+    $now <= DateTime
+    Message "$(now)"
+    
+  PS:DateTime <<END
+    (Get-Date).ToString("yyyy.MM.dd")
+  END

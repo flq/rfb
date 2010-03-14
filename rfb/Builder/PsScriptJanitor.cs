@@ -8,12 +8,12 @@ namespace rfb.Builder
 {
   public class PsScriptJanitor
   {
-    readonly List<TaskVarCombo> tasks = new List<TaskVarCombo>();
+    readonly List<TaskDefinition> tasks = new List<TaskDefinition>();
     readonly List<PsScriptToken> scripts = new List<PsScriptToken>();
 
     public void AddScriptTask(BuildTask task, PSWithReturnValueToken variableToken)
     {
-      tasks.Add(new TaskVarCombo(task,variableToken));
+      tasks.Add(new TaskDefinition(task,variableToken));
     }
 
     public void AddScript(PsScriptToken script)
@@ -35,24 +35,24 @@ namespace rfb.Builder
         project.AddNewUsingTaskFromAssemblyName("RunScript", GetType().Assembly.FullName);
     }
 
-    private class TaskVarCombo
+    private class TaskDefinition
     {
       private readonly BuildTask task;
       private readonly PSWithReturnValueToken varToken;
       private readonly AnyToken valueOfVar;
 
-      public TaskVarCombo(BuildTask task, PSWithReturnValueToken varToken)
+      public TaskDefinition(BuildTask task, PSWithReturnValueToken varToken)
       {
         this.task = task;
         this.varToken = varToken;
         valueOfVar = AsNodeWithOptions;
-        if (valueOfVar["Capture"] == null)
-          throw new ArgumentNullException("Capture", "The Capture option must be set when running a PS script to return a variable");
         task.SetParameterValue("Capture", valueOfVar["Capture"]);
-        if (varToken.ValueType.Equals(PSWithReturnValueToken.ReturnValueType.ItemGroup))
-        {
+        task.SetParameterValue("ReturnValueType", varToken.ValueType.ToString());
+        if (varToken.ValueType.Equals(PSScriptReturnValueType.ItemGroup))
           task.AddOutputItem("ScriptItemOutput", varToken.VariableName);
-        }
+        if (varToken.ValueType.Equals(PSScriptReturnValueType.Property))
+          task.AddOutputProperty("ScriptPropOutput", varToken.VariableName);
+        
       }
 
       public string ScriptName

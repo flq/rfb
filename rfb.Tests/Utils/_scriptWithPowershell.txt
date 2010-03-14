@@ -4,7 +4,7 @@
     @files <= smallPNGs -Capture:FullName, Extension
     Message "%(files.Identity) and extension %(files.Extension)"
     
-  PS "smallPNGs" <<END
+  PS:smallPNGs <<END
     echo "Returning small pngs"
     cd C:\users\flq\Documents
     Get-ChildItem -Recurse | 

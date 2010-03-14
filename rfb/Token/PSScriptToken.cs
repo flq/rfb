@@ -6,7 +6,7 @@ namespace rfb.Token
 {
   public class PsScriptToken : AbstractToken
   {
-    private static Regex psScriptStart = new Regex(@"\s*PS\s""(.+)""\s*<<(\w+)", RegexOptions.Compiled);
+    private static Regex psScriptStart = new Regex(@"\s*PS:(\w+)\s*<<(\w+)", RegexOptions.Compiled);
 
     protected override AbstractToken handle(TokenizerHandle handle)
     {

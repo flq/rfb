@@ -7,15 +7,7 @@ namespace rfb.Token
   [DebuggerDisplay("Variable: {VariableName} - {Value}")]
   public class PSWithReturnValueToken : AbstractDefinedValueToken
   {
-
-    public enum ReturnValueType
-    {
-      Undefined,
-      ItemGroup,
-      Property,
-    }
-
-    public ReturnValueType ValueType { get; private set; }
+    public PSScriptReturnValueType ValueType { get; private set; }
 
     public override IToken Clone()
     {
@@ -26,9 +18,9 @@ namespace rfb.Token
     {
       var typeOfOutput = tHandle.CurrentLine.TrimStart(' ').Substring(0, 1);
       if (typeOfOutput == "@")
-        ValueType = ReturnValueType.ItemGroup;
+        ValueType = PSScriptReturnValueType.ItemGroup;
       else if (typeOfOutput == "$")
-        ValueType = ReturnValueType.Property;
+        ValueType = PSScriptReturnValueType.Property;
       else
         throw new InvalidOperationException("Impossible! No way!");
     }
@@ -36,7 +28,7 @@ namespace rfb.Token
     protected override void reset()
     {
       base.reset();
-      ValueType = ReturnValueType.Undefined;
+      ValueType = PSScriptReturnValueType.Undefined;
     }
 
     public override void Accept(ITokenStreamVisitor visitor)

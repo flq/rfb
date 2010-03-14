@@ -11,7 +11,7 @@
     $jiggle <= blaBlub
     @joggle <= blaBlub
   
-  PS "blaBlub" <<FIN
+  PS:blaBlub <<FIN
     echo "Hello World"
     "jones"
   FIN

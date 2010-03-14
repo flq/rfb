@@ -128,5 +128,24 @@ namespace rfb.Tests
       t.Script.Contains("FullName").ShouldBeTrue();
       t.Terminator.ShouldBeEqualTo("END");
     }
+
+    [Test]
+    public void PowershellScriptCallTokenNotMatchingScriptDef()
+    {
+      var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershell.txt"));
+      handle.FastForwardToLine(7);
+      var t = handle.ProcessWithToken<PSScriptCallToken>();
+      t.ShouldBeNull();
+    }
+
+    [Test]
+    public void PowershellScriptCallToken()
+    {
+      //TODO: TokenWithOptions Startword matching: Polymorphise
+      var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershellExecAsTask.txt"));
+      handle.FastForwardToLine(4);
+      var t = handle.ProcessWithToken<PSScriptCallToken>();
+      t.ShouldNotBeNull();
+    }
   }
 }

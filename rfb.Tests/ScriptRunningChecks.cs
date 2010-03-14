@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using rfb.Tests.Utils;
 using System.Linq;
@@ -56,6 +57,15 @@ namespace rfb.Tests
         .SetFile("_scriptWithPowershell.txt")
         .Run();
       runner.Logger.LoggedMessages.Count(m=>m.EndsWith(".png")).ShouldBeGreaterThan(10);
+    }
+
+    [Test]
+    public void ConnectingPropertyToPSOutput()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithPowershellFillProp.txt")
+        .Run();
+      runner.Logged(DateTime.Now.ToString("yyyy.MM.dd")).ShouldBeTrue();
     }
   }
 }
