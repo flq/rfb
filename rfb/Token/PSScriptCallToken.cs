@@ -9,7 +9,15 @@ namespace rfb.Token
 
     public override void Accept(ITokenStreamVisitor visitor)
     {
-      throw new NotImplementedException();
+      visitor.Visit(this);
+    }
+
+    protected override Regex startWord
+    {
+      get
+      {
+        return psScriptCall;
+      }
     }
 
     protected override Regex matchCondition

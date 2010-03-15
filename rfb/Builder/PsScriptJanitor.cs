@@ -9,14 +9,19 @@ namespace rfb.Builder
   public class PsScriptJanitor
   {
     readonly List<TaskDefinition> tasks = new List<TaskDefinition>();
-    readonly List<PsScriptToken> scripts = new List<PsScriptToken>();
+    readonly List<PSScriptToken> scripts = new List<PSScriptToken>();
 
     public void AddScriptTask(BuildTask task, PSWithReturnValueToken variableToken)
     {
       tasks.Add(new TaskDefinition(task,variableToken));
     }
 
-    public void AddScript(PsScriptToken script)
+    public void AddScriptTask(BuildTask task, PSScriptCallToken callToken)
+    {
+      tasks.Add(new TaskDefinition(task, callToken));
+    }
+
+    public void AddScript(PSScriptToken script)
     {
       scripts.Add(script);
     }
@@ -38,26 +43,31 @@ namespace rfb.Builder
     private class TaskDefinition
     {
       private readonly BuildTask task;
-      private readonly PSWithReturnValueToken varToken;
-      private readonly AnyToken valueOfVar;
+      private readonly TokenWithOptions scriptUseToken;
 
       public TaskDefinition(BuildTask task, PSWithReturnValueToken varToken)
       {
         this.task = task;
-        this.varToken = varToken;
-        valueOfVar = AsNodeWithOptions;
-        task.SetParameterValue("Capture", valueOfVar["Capture"]);
+        scriptUseToken = asNodeWithOptions(varToken);
+        task.SetParameterValue("Capture", scriptUseToken["Capture"]);
         task.SetParameterValue("ReturnValueType", varToken.ValueType.ToString());
         if (varToken.ValueType.Equals(PSScriptReturnValueType.ItemGroup))
           task.AddOutputItem("ScriptItemOutput", varToken.VariableName);
         if (varToken.ValueType.Equals(PSScriptReturnValueType.Property))
           task.AddOutputProperty("ScriptPropOutput", varToken.VariableName);
-        
+      }
+
+      public TaskDefinition(BuildTask task, TokenWithOptions callToken)
+      {
+        this.task = task;
+        scriptUseToken = callToken;
+        task.SetParameterValue("Capture", callToken["Capture"]);
+        task.SetParameterValue("ReturnValueType", PSScriptReturnValueType.Undefined.ToString());
       }
 
       public string ScriptName
       {
-        get { return valueOfVar.Word; }
+        get { return scriptUseToken.Word; }
       }
 
       public void SetScript(string script)
@@ -65,18 +75,15 @@ namespace rfb.Builder
         task.SetParameterValue("Script", script);
       }
 
-      private AnyToken AsNodeWithOptions
+      private static AnyToken asNodeWithOptions(AbstractDefinedValueToken varToken)
       {
-        get
-        {
-          var h = new TokenizerHandle(varToken.Value);
-          h.Advance();
-          var anyToken = new AnyToken();
-          anyToken = (AnyToken) anyToken.Check(h);
-          if (anyToken == null)
-            throw new ArgumentException("Value to " + varToken.VariableName + " could not be understood.");
-          return anyToken;
-        }
+        var h = new TokenizerHandle(varToken.Value);
+        h.Advance();
+        var anyToken = new AnyToken();
+        anyToken = (AnyToken) anyToken.Check(h);
+        if (anyToken == null)
+          throw new ArgumentException("Value to " + varToken.VariableName + " could not be understood.");
+        return anyToken;
       }
     }
   }

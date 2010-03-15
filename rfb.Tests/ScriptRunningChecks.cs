@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using NUnit.Framework;
 using rfb.Tests.Utils;
 using System.Linq;
@@ -66,6 +67,18 @@ namespace rfb.Tests
         .SetFile("_scriptWithPowershellFillProp.txt")
         .Run();
       runner.Logged(DateTime.Now.ToString("yyyy.MM.dd")).ShouldBeTrue();
+    }
+
+    [Test]
+    public void RunningAScript()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithPowershellExecAsTask.txt")
+        .Run();
+      var createdFile = Path.Combine(Path.GetTempPath(), "testtest.tst");
+      File.Exists(createdFile).ShouldBeTrue();
+      File.Delete(createdFile);
+
     }
   }
 }

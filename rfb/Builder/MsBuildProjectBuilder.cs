@@ -129,9 +129,16 @@ namespace rfb
       // Nothing to be done
     }
 
-    public void Visit(PsScriptToken token)
+    public void Visit(PSScriptToken token)
     {
       ScriptJanitor.AddScript(token);
+    }
+
+    public void Visit(PSScriptCallToken token)
+    {
+      if (currentTarget == null)
+        throw new InvalidOperationException("A script call should be done inside a target");
+      ScriptJanitor.AddScriptTask(currentTarget.AddNewTask("RunScript"), token);
     }
 
     public void Visit(PSWithReturnValueToken token)

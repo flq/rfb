@@ -122,7 +122,7 @@ namespace rfb.Tests
     {
       var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershell.txt"));
       handle.FastForwardToLine(7);
-      var t = handle.ProcessWithToken<PsScriptToken>();
+      var t = handle.ProcessWithToken<PSScriptToken>();
       t.ScriptName.ShouldBeEqualTo("smallPNGs");
       t.Script.IndexOf("echo").ShouldBeSmallerThan(5);
       t.Script.Contains("FullName").ShouldBeTrue();
@@ -141,11 +141,11 @@ namespace rfb.Tests
     [Test]
     public void PowershellScriptCallToken()
     {
-      //TODO: TokenWithOptions Startword matching: Polymorphise
       var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershellExecAsTask.txt"));
       handle.FastForwardToLine(4);
       var t = handle.ProcessWithToken<PSScriptCallToken>();
       t.ShouldNotBeNull();
+      t.Word.ShouldBeEqualTo("MakeFile");
     }
   }
 }

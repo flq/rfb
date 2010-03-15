@@ -7,7 +7,7 @@ namespace rfb.Token
 {
   public abstract class TokenWithOptions : AbstractToken, IEnumerable<KeyValuePair<string,string>>
   {
-    protected readonly static Regex startWord = new Regex(@"^\s*(\w+?)(?=\s|$)", RegexOptions.Compiled);
+    protected readonly static Regex defaultStartWord = new Regex(@"^\s*(\w+?)(?=\s|$)", RegexOptions.Compiled);
     private readonly static Regex defaultOption = new Regex(@"""(.+?)(?<!\\)""", RegexOptions.Compiled);
     private readonly static Regex optionFinder = new Regex(@"-(\w+?):(.+?)(?=-|$)", RegexOptions.Compiled);
 
@@ -20,6 +20,11 @@ namespace rfb.Token
     public string Word { get; private set; }
 
     protected abstract Regex matchCondition { get; }
+
+    protected virtual Regex startWord
+    {
+      get { return defaultStartWord; }
+    }
 
     protected override AbstractToken handle(TokenizerHandle handle)
     {

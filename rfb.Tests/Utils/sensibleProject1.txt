@@ -6,6 +6,7 @@
     // This one a dir will be made of.
     $bar = Bang Bop
     @stuff = $(iisOutDir)\**\*.*
+    PS:SomeScript
     MakeDir "This_$(bar).plonk"
     `cd hello/world
     $jiggle <= blaBlub
@@ -15,3 +16,7 @@
     echo "Hello World"
     "jones"
   FIN
+  
+  PS:SomeScript <<FINAL
+    echo "I love them"
+  FINAL

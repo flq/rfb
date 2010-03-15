@@ -21,6 +21,7 @@ namespace rfb.Tests
     public int VisitedPsScriptToken;
     public int VisitedPSWithReturnValueToken;
     public int VisitedEndToken;
+    public int VisitedPSScriptCallToken;
 
     public void Visit(ProjectToken token)
     {
@@ -85,9 +86,16 @@ namespace rfb.Tests
       Tokens.Add(token);
     }
 
-    public void Visit(PsScriptToken token)
+    public void Visit(PSScriptToken token)
     {
       VisitedPsScriptToken++;
+      TotalCount++;
+      Tokens.Add(token);
+    }
+
+    public void Visit(PSScriptCallToken token)
+    {
+      VisitedPSScriptCallToken++;
       TotalCount++;
       Tokens.Add(token);
     }

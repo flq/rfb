@@ -18,10 +18,11 @@ namespace rfb.Token
                  {
                    new ProjectToken(),
                    new TargetToken(),
-                   new PsScriptToken(),
+                   new PSScriptToken(),
                    new UsingTaskToken(),
                    new VariableToken(),
                    new PSWithReturnValueToken(),
+                   new PSScriptCallToken(),
                    new ItemGroupToken(),
                    new CommentToken(),
                    new BacktickToken(),

@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace rfb.Token
 {
-  public class PsScriptToken : AbstractToken
+  public class PSScriptToken : AbstractToken
   {
-    private static Regex psScriptStart = new Regex(@"\s*PS:(\w+)\s*<<(\w+)", RegexOptions.Compiled);
+    private static readonly Regex psScriptStart = new Regex(@"\s*PS:(\w+)\s*<<(\w+)", RegexOptions.Compiled);
 
     protected override AbstractToken handle(TokenizerHandle handle)
     {
@@ -26,7 +26,7 @@ namespace rfb.Token
       h.CurrentHandled();
       h.Advance();
       var rEnd = new Regex(@"\s*" + Terminator);
-      StringBuilder b = new StringBuilder();
+      var b = new StringBuilder();
       while (!rEnd.IsMatch(h.CurrentLine))
       {
         b.AppendLine(h.CurrentLine);
@@ -49,7 +49,7 @@ namespace rfb.Token
 
     public override IToken Clone()
     {
-      return new PsScriptToken { Script = Script, ScriptName = ScriptName, Terminator = Terminator};
+      return new PSScriptToken { Script = Script, ScriptName = ScriptName, Terminator = Terminator};
     }
 
     public override void Accept(ITokenStreamVisitor visitor)
