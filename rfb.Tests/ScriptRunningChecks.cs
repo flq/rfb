@@ -78,7 +78,17 @@ namespace rfb.Tests
       var createdFile = Path.Combine(Path.GetTempPath(), "testtest.tst");
       File.Exists(createdFile).ShouldBeTrue();
       File.Delete(createdFile);
+    }
 
+    [Test]
+    public void UsingParametersForPowershell()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithParams.txt")
+        .Run();
+      var msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Swonk"));
+      msg.ShouldNotBeNull();
+      msg.ShouldBeEqualTo("We have Foodadl and Swonk");
     }
   }
 }

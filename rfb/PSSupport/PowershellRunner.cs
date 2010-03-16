@@ -30,8 +30,17 @@ namespace rfb.PSSupport
 
     public Collection<PSObject> InvokeScript(string script)
     {
+      return InvokeScript(script, null);
+    }
+
+    public Collection<PSObject> InvokeScript(string script, IDictionary parameters)
+    {
       var p = runSpace.CreatePipeline();
       var cmd = new Command(script, true);
+      if (parameters != null)
+        foreach (DictionaryEntry kv in parameters)
+          cmd.Parameters.Add(kv.Key.ToString(), kv.Value);
+
       p.Commands.Add(cmd);
       return p.Invoke();
     }

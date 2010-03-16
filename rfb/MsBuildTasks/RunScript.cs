@@ -25,10 +25,17 @@ namespace rfb.MsBuildTasks
 
     public string Capture { get; set; }
 
+    public string CommandParameters { get; set; }
+
     public override bool Execute()
     {
       Log.LogMessage(MessageImportance.Normal, "About to run Powershell script");
-      var output = PowershellRunner.Me.InvokeScript(Script);
+
+      Dictionary<string, string> @params =
+        !string.IsNullOrEmpty(CommandParameters) ? 
+          ((KeyValueSerializer) CommandParameters).ToDictionary() : null;
+
+      var output = PowershellRunner.Me.InvokeScript(Script, @params);
 
       var retValType = (PSScriptReturnValueType)Enum.Parse(typeof(PSScriptReturnValueType), ReturnValueType);
 

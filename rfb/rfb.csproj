@@ -60,6 +60,7 @@
     <Compile Include="ITokenStreamVisitor.cs" />
     <Compile Include="Builder\MsBuildProjectBuilder.cs" />
     <Compile Include="BuildRunner.cs" />
+    <Compile Include="KeyValueSerializer.cs" />
     <Compile Include="MsBuildTasks\RunScript.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="PSSupport\PowershellHost.cs" />

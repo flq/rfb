@@ -50,6 +50,12 @@ namespace rfb.Builder
         this.task = task;
         scriptUseToken = asNodeWithOptions(varToken);
         task.SetParameterValue("Capture", scriptUseToken["Capture"]);
+
+        var kvSerializer = (KeyValueSerializer)scriptUseToken.Where(kv => kv.Key != "Capture")
+            .ToDictionary(kv => kv.Key, kv => kv.Value);
+        if (!string.IsNullOrEmpty(kvSerializer.ToString()))
+          task.SetParameterValue("CommandParameters", kvSerializer.ToString());
+
         task.SetParameterValue("ReturnValueType", varToken.ValueType.ToString());
         if (varToken.ValueType.Equals(PSScriptReturnValueType.ItemGroup))
           task.AddOutputItem("ScriptItemOutput", varToken.VariableName);

@@ -1,0 +1,10 @@
+﻿Project "Default"
+  
+  Target "Default"
+    $a <= Output -p1:Foodadl -p2:Swonk
+    Message "$(a)"
+    
+  PS:Output <<END
+    param([string]$p1, [string]$p2)
+    "We have $p1 and $p2"
+  END

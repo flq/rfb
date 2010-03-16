@@ -24,6 +24,7 @@ namespace rfb.Tests.Utils
     private void handleMessageRaised(object sender, BuildMessageEventArgs e)
     {
       LoggedMessages.Add(e.Message);
+      Console.WriteLine(e.Message);
     }
 
     void ILogger.Shutdown()
