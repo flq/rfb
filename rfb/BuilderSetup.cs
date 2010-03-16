@@ -9,6 +9,7 @@ namespace rfb
     public string BuildFile { get; set; }
     public string Target { get; set; }
     public string Property { get; set; }
+    public string OutputXml { get; set; }
     public string LoggerType { get; set; }
 
     public Type LoggerAsType

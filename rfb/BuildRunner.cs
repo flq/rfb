@@ -35,6 +35,11 @@ namespace rfb
         var builder = new MsBuildProjectBuilder(new StandardDefaultValueResolver(), engine);
         var tokenizer = new Tokenizer(tr);
         tokenizer.Accept(builder);
+        if (!string.IsNullOrEmpty(setup.OutputXml))
+        {
+          builder.Project.Save(setup.OutputXml);
+          return;
+        }
         if (setup.HasProperties)
           foreach (var p in setup.Properties)
             builder.Project.SetProperty(p.Key, p.Value);
