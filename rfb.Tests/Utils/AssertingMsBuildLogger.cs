@@ -19,9 +19,16 @@ namespace rfb.Tests.Utils
     {
       me.LoggedMessages = new List<string>();
       eventSource.MessageRaised += me.handleMessageRaised;
+      eventSource.WarningRaised += me.handleWarningRaised;
     }
 
     private void handleMessageRaised(object sender, BuildMessageEventArgs e)
+    {
+      LoggedMessages.Add(e.Message);
+      Console.WriteLine(e.Message);
+    }
+
+    private void handleWarningRaised(object sender, BuildWarningEventArgs e)
     {
       LoggedMessages.Add(e.Message);
       Console.WriteLine(e.Message);

@@ -63,11 +63,12 @@
     <Compile Include="KeyValueSerializer.cs" />
     <Compile Include="MsBuildTasks\RunScript.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="PSSupport\MsBuildInterface.cs" />
     <Compile Include="PSSupport\PowershellHost.cs" />
-    <Compile Include="PSSupport\PowershellRunner.cs" />
+    <Compile Include="PSSupport\PowershellRunspace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PSSupport\PSBridge.cs" />
+    <Compile Include="PSSupport\PSRawUserItf.cs" />
     <Compile Include="StandardDefaultValueResolver.cs" />
     <Compile Include="Token\AbstractDefinedValueToken.cs" />
     <Compile Include="Token\AnyToken.cs" />

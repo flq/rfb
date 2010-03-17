@@ -35,14 +35,17 @@ namespace rfb.MsBuildTasks
         !string.IsNullOrEmpty(CommandParameters) ? 
           ((KeyValueSerializer) CommandParameters).ToDictionary() : null;
 
-      var output = PowershellRunner.Me.InvokeScript(Script, @params);
+      using (var psRunner = PowershellRunspace.CreateRunner(Log))
+      {
+        var output = psRunner.InvokeScript(Script, @params);
 
-      var retValType = (PSScriptReturnValueType)Enum.Parse(typeof(PSScriptReturnValueType), ReturnValueType);
+        var retValType = (PSScriptReturnValueType) Enum.Parse(typeof (PSScriptReturnValueType), ReturnValueType);
 
-      if (retValType.Equals(PSScriptReturnValueType.ItemGroup))
-        ScriptItemOutput = convertOutput(output).ToArray();
-      else if (retValType.Equals(PSScriptReturnValueType.Property))
-        ScriptPropOutput = convertOutput(output).Last().ItemSpec;
+        if (retValType.Equals(PSScriptReturnValueType.ItemGroup))
+          ScriptItemOutput = convertOutput(output).ToArray();
+        else if (retValType.Equals(PSScriptReturnValueType.Property))
+          ScriptPropOutput = convertOutput(output).Last().ItemSpec;
+      }
       return true;
     }
 

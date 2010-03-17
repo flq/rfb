@@ -90,5 +90,17 @@ namespace rfb.Tests
       msg.ShouldNotBeNull();
       msg.ShouldBeEqualTo("We have Foodadl and Swonk");
     }
+
+    [Test]
+    public void PowershellLogsArriveInMsBuild()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptPowershellWritingHost.txt")
+        .Run();
+      var msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Hi"));
+      msg.ShouldNotBeNull();
+      msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Ho"));
+      msg.ShouldNotBeNull();
+    }
   }
 }

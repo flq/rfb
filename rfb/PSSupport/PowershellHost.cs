@@ -1,12 +1,20 @@
 using System;
 using System.Globalization;
 using System.Management.Automation.Host;
+using Microsoft.Build.Framework;
 
-namespace rfb
+namespace rfb.PSSupport
 {
   public class PowershellHost : PSHost
   {
-    
+    private readonly MsBuildInterface msBuildInterface;
+    private readonly Guid guid;
+
+    public PowershellHost(MsBuildInterface msBuildInterface)
+    {
+      this.msBuildInterface = msBuildInterface;
+      guid = Guid.NewGuid();
+    }
 
     public override void SetShouldExit(int exitCode)
     {
@@ -45,22 +53,22 @@ namespace rfb
 
     public override Guid InstanceId
     {
-      get { throw new NotImplementedException(); }
+      get { return guid; }
     }
 
     public override PSHostUserInterface UI
     {
-      get { throw new NotImplementedException(); }
+      get { return msBuildInterface; }
     }
 
     public override CultureInfo CurrentCulture
     {
-      get { throw new NotImplementedException(); }
+      get { return CultureInfo.InvariantCulture; }
     }
 
     public override CultureInfo CurrentUICulture
     {
-      get { throw new NotImplementedException(); }
+      get { return CultureInfo.InstalledUICulture; }
     }
   }
 }

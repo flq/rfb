@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PSChecks.cs" />
     <Compile Include="Utils\AssertingMsBuildLogger.cs" />
     <Compile Include="Utils\AssertingTokenStreamVisitor.cs" />
     <Compile Include="ProjectBuilderChecks.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="TokenChecks.cs" />
     <Compile Include="TokenizerHandleChecks.cs" />
     <Compile Include="TokenizerStreamChecks.cs" />
-    <Compile Include="MsBuildProjectBuilderChecks.cs" />
     <Compile Include="Utils\AssertExtensions.cs" />
     <Compile Include="Utils\DataMother.cs" />
     <Compile Include="Utils\ScriptRunner.cs" />
@@ -112,6 +110,7 @@
     <EmbeddedResource Include="Utils\_scriptWithPowershellFillProp.txt" />
     <EmbeddedResource Include="Utils\_scriptWithPowershellExecAsTask.txt" />
     <EmbeddedResource Include="Utils\_scriptWithParams.txt" />
+    <EmbeddedResource Include="Utils\_scriptPowershellWritingHost.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

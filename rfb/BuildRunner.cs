@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Build.BuildEngine;
 using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 using rfb.Token;
 
 namespace rfb
