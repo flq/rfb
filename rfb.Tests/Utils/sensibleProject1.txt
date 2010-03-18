@@ -12,6 +12,11 @@
     $jiggle <= blaBlub
     @joggle <= blaBlub
   
+  Target "Another"
+    PS <<END
+      Write-Warning "Bla Bla"
+    END
+  
   PS:blaBlub <<FIN
     echo "Hello World"
     "jones"

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Build.BuildEngine;
 using rfb.Builder;
 using rfb.Token;
@@ -132,6 +131,13 @@ namespace rfb
     public void Visit(PSExternalScriptToken token)
     {
       ScriptJanitor.AddScript(token);
+    }
+
+    public void Visit(PSInlineScriptToken token)
+    {
+      if (currentTarget == null)
+        throw new InvalidOperationException("An inline script must be inside a target");
+      ScriptJanitor.AddScriptTask(currentTarget.AddNewTask("RunScript"), token);
     }
 
     public void Visit(PSScriptCallToken token)

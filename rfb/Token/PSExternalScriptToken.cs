@@ -1,10 +1,9 @@
 using System;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace rfb.Token
 {
-  public class PSExternalScriptToken : AbstractToken
+  public class PSExternalScriptToken : PSScriptToken
   {
     private static readonly Regex psScriptStart = new Regex(@"\s*PS:(\w+)\s*<<(\w+)", RegexOptions.Compiled);
 
@@ -21,30 +20,12 @@ namespace rfb.Token
       return this;
     }
 
-    private void extractScript(TokenizerHandle h)
-    {
-      h.CurrentHandled();
-      h.Advance();
-      var rEnd = new Regex(@"\s*" + Terminator);
-      var b = new StringBuilder();
-      while (!rEnd.IsMatch(h.CurrentLine))
-      {
-        b.AppendLine(h.CurrentLine);
-        h.CurrentHandled();
-        h.Advance();
-      }
-      Script = b.ToString();
-    }
-
-    public string Script { get; private set; }
     public string ScriptName { get; private set; }
-    public string Terminator { get; private set; }
 
     protected override void reset()
     {
-      Script = null;
+      base.reset();
       ScriptName = null;
-      Terminator = null;
     }
 
     public override IToken Clone()

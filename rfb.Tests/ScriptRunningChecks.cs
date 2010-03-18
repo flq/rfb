@@ -102,5 +102,15 @@ namespace rfb.Tests
       msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Ho"));
       msg.ShouldNotBeNull();
     }
+
+    [Test]
+    public void PowershellInlineScriptsWork()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptWithPowershellInline.txt")
+        .Run();
+      var msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Inside the script block"));
+      msg.ShouldNotBeNull();
+    }
   }
 }

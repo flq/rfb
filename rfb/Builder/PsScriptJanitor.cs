@@ -21,6 +21,11 @@ namespace rfb.Builder
       tasks.Add(new TaskDefinition(task, callToken));
     }
 
+    public void AddScriptTask(BuildTask task, PSInlineScriptToken inlineScript)
+    {
+      tasks.Add(new TaskDefinition(task, inlineScript));
+    }
+
     public void AddScript(PSExternalScriptToken script)
     {
       scripts.Add(script);
@@ -28,7 +33,7 @@ namespace rfb.Builder
 
     public void MopUp(Project project)
     {
-      foreach (var t in tasks)
+      foreach (var t in tasks.Where(td=>!td.ScriptIsSet))
       {
         var scr = scripts.FirstOrDefault(s => s.ScriptName.Equals(t.ScriptName));
         if (scr == null)
@@ -71,10 +76,20 @@ namespace rfb.Builder
         task.SetParameterValue("ReturnValueType", PSScriptReturnValueType.Undefined.ToString());
       }
 
+      public TaskDefinition(BuildTask task, PSScriptToken token)
+      {
+        this.task = task;
+        task.SetParameterValue("Script", token.Script);
+        task.SetParameterValue("ReturnValueType", PSScriptReturnValueType.Undefined.ToString());
+        ScriptIsSet = true;
+      }
+
       public string ScriptName
       {
         get { return scriptUseToken.Word; }
       }
+
+      public bool ScriptIsSet { get; private set; }
 
       public void SetScript(string script)
       {

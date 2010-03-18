@@ -16,13 +16,14 @@ namespace rfb.Tests
       var t = "sensibleProject1.txt".Tokenized();
       var vtor = new AssertingTokenStreamVisitor();
       t.Accept(vtor);
-      vtor.TotalCount.ShouldBeEqualTo(16);
+      vtor.TotalCount.ShouldBeEqualTo(18);
       vtor.VisitedProjectToken.ShouldBeEqualTo(1);
       vtor.VisitedUsingTaskToken.ShouldBeEqualTo(1);
-      vtor.VisitedTargetToken.ShouldBeEqualTo(1);
+      vtor.VisitedTargetToken.ShouldBeEqualTo(2);
       vtor.VisitedVariableToken.ShouldBeEqualTo(2);
       vtor.VisitedBacktick.ShouldBeEqualTo(1);
-      vtor.VisitedPsScriptToken.ShouldBeEqualTo(2);
+      vtor.VisitedExternalPsScriptToken.ShouldBeEqualTo(2);
+      vtor.VisitedInlineScriptToken.ShouldBeEqualTo(1);
       vtor.VisitedPSWithReturnValueToken.ShouldBeEqualTo(2);
       vtor.VisitedPSScriptCallToken.ShouldBeEqualTo(1);
       vtor.Tokens.OfType<PSWithReturnValueToken>()

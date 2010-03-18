@@ -14,6 +14,7 @@ namespace rfb
     void Visit(VariableToken token);
     void Visit(CommentToken token);
     void Visit(PSExternalScriptToken token);
+    void Visit(PSInlineScriptToken token);
     void Visit(PSScriptCallToken token);
     void Visit(PSWithReturnValueToken token);
     void Visit(EndToken token);
