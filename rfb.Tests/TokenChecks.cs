@@ -122,7 +122,7 @@ namespace rfb.Tests
     {
       var handle = new TokenizerHandle(DataMother.GetFile("_scriptWithPowershell.txt"));
       handle.FastForwardToLine(7);
-      var t = handle.ProcessWithToken<PSScriptToken>();
+      var t = handle.ProcessWithToken<PSExternalScriptToken>();
       t.ScriptName.ShouldBeEqualTo("smallPNGs");
       t.Script.IndexOf("echo").ShouldBeSmallerThan(5);
       t.Script.Contains("FullName").ShouldBeTrue();

@@ -86,7 +86,7 @@ namespace rfb.Tests
       Tokens.Add(token);
     }
 
-    public void Visit(PSScriptToken token)
+    public void Visit(PSExternalScriptToken token)
     {
       VisitedPsScriptToken++;
       TotalCount++;

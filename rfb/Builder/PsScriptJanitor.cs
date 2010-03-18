@@ -9,7 +9,7 @@ namespace rfb.Builder
   public class PsScriptJanitor
   {
     readonly List<TaskDefinition> tasks = new List<TaskDefinition>();
-    readonly List<PSScriptToken> scripts = new List<PSScriptToken>();
+    readonly List<PSExternalScriptToken> scripts = new List<PSExternalScriptToken>();
 
     public void AddScriptTask(BuildTask task, PSWithReturnValueToken variableToken)
     {
@@ -21,7 +21,7 @@ namespace rfb.Builder
       tasks.Add(new TaskDefinition(task, callToken));
     }
 
-    public void AddScript(PSScriptToken script)
+    public void AddScript(PSExternalScriptToken script)
     {
       scripts.Add(script);
     }

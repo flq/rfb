@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace rfb.Token
 {
-  public class PSScriptToken : AbstractToken
+  public class PSExternalScriptToken : AbstractToken
   {
     private static readonly Regex psScriptStart = new Regex(@"\s*PS:(\w+)\s*<<(\w+)", RegexOptions.Compiled);
 
@@ -49,7 +49,7 @@ namespace rfb.Token
 
     public override IToken Clone()
     {
-      return new PSScriptToken { Script = Script, ScriptName = ScriptName, Terminator = Terminator};
+      return new PSExternalScriptToken { Script = Script, ScriptName = ScriptName, Terminator = Terminator};
     }
 
     public override void Accept(ITokenStreamVisitor visitor)

@@ -1,0 +1,6 @@
+﻿Project "Default"
+  
+  Target "Default"
+    PS <<END
+      Write-Warning Inside the script block
+    END

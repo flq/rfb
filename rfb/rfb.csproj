@@ -81,7 +81,7 @@
     <Compile Include="Token\PSWithReturnValueToken.cs" />
     <Compile Include="Token\ImportProjectToken.cs" />
     <Compile Include="Token\ItemGroupToken.cs" />
-    <Compile Include="Token\PSScriptToken.cs" />
+    <Compile Include="Token\PSExternalScriptToken.cs" />
     <Compile Include="Token\TargetToken.cs" />
     <Compile Include="Token\TokenizerHandle.cs" />
     <Compile Include="Token\AbstractToken.cs" />

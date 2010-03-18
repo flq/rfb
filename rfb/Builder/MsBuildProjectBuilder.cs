@@ -129,7 +129,7 @@ namespace rfb
       // Nothing to be done
     }
 
-    public void Visit(PSScriptToken token)
+    public void Visit(PSExternalScriptToken token)
     {
       ScriptJanitor.AddScript(token);
     }

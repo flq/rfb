@@ -111,6 +111,7 @@
     <EmbeddedResource Include="Utils\_scriptWithPowershellExecAsTask.txt" />
     <EmbeddedResource Include="Utils\_scriptWithParams.txt" />
     <EmbeddedResource Include="Utils\_scriptPowershellWritingHost.txt" />
+    <EmbeddedResource Include="Utils\_scriptWithPowershellInline.txt" />
     <Content Include="Utils\rfSiteBuildScript.original.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
