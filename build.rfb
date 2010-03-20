@@ -1,0 +1,24 @@
+Project "Default"
+  
+  ImportProject "$(MSBuildExtensionsPath)\MSBuild.Community.Tasks.Targets"
+  
+  Target "Clean"
+    RemoveDir "out"
+    MakeDir "out"
+ 
+  Target "Default" -Deps:Clean
+    MsBuild "rfb.sln" -Properties:Configuration=Release
+	$currentTag <= GetGitTag
+	Message "Current Git Tag: $(currentTag)"
+	$binDir = rfb\bin\Release
+	@sourceFiles = $(binDir)\rfb.exe;$(binDir)\rfb.exe.config;lib\System.Management.Automation.dll
+	Copy -SourceFiles:@(sourceFiles) -DestinationFolder:out
+	@filesToZip = out\*.*
+	Zip 
+	  -ZipFileName:rfb\-$(currentTag).zip 
+	  -Files:@(filesToZip) 
+	  -WorkingDirectory:out
+	
+  PS:GetGitTag <<FIN
+    git describe
+  FIN

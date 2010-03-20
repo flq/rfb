@@ -1,0 +1,10 @@
+﻿Project "Default" -Name:rfb build file for rfb
+   
+  Target "Default" -Deps:Clean
+	  Copy -SourceFiles:@(sourceFiles) -DestinationFolder:out
+	  PS:Zip -dir:out -zipName:out\rfb-$(currentTag).zip
+	  
+  PS:Zip <<END
+    param([string]$dir, [string]$zipName)
+	  $zipFile = (new-object -com shell.application).NameSpace($zipName)
+  END

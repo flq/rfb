@@ -5,8 +5,7 @@ namespace rfb.Token
 {
   public class PSScriptCallToken : TokenWithOptions
   {
-    private static readonly Regex psScriptCall = new Regex(@"\s*PS:(\w+)(?!.*<<)", RegexOptions.Compiled);
-
+    
     public override void Accept(ITokenStreamVisitor visitor)
     {
       visitor.Visit(this);
@@ -16,13 +15,13 @@ namespace rfb.Token
     {
       get
       {
-        return psScriptCall;
+        return KnownRegularExpressions.ScriptCallMatch;
       }
     }
 
     protected override Regex matchCondition
     {
-      get {return psScriptCall; }
+      get { return KnownRegularExpressions.ScriptCallMatch; }
     }
   }
 }

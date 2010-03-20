@@ -1,13 +1,28 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace rfb
 {
   class Program
   {
+    //[STAThread]
     static void Main(string[] args)
     {
-      
+      AppDomain.CurrentDomain.AssemblyResolve += onAssemblyResolve;
+      AppDomain.CurrentDomain.TypeResolve += onTypeResolve;
+      //Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
+
+      var t = new Thread(runRfb);
+      t.SetApartmentState(ApartmentState.STA); //OMG! warning MSB4056!
+      t.Start(args);
+      t.Join();
+    }
+
+    private static void runRfb(object arg)
+    {
+      var args = (string[]) arg;
       var setup = new BuilderSetup();
       var showHelp = false;
       var options =
@@ -47,10 +62,32 @@ namespace rfb
       {
         Console.WriteLine("File {0} was not found", x.FileName);
       }
-      
-      end: 
-      Console.WriteLine("rfb done, press any key to finish...");
-      Console.ReadLine();
+      catch (Exception x)
+      {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Unhandled exception:");
+        Console.WriteLine("{0} - {1} at {2}", x.GetType().Name, x.Message, x.StackTrace);
+        Console.ResetColor();
+      }
+
+      end:
+      Console.ForegroundColor = ConsoleColor.Green;
+      Console.WriteLine("rfb done.");
+      Console.ResetColor();
+    }
+
+    private static Assembly onTypeResolve(object sender, ResolveEventArgs args)
+    {
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine("System is trying to resolve type {0}", args.Name);
+      return null;
+    }
+
+    private static Assembly onAssemblyResolve(object sender, ResolveEventArgs args)
+    {
+      Console.ForegroundColor = ConsoleColor.Yellow;
+      Console.WriteLine("System is trying to resolve assembly {0}", args.Name);
+      return null;
     }
   }
 }

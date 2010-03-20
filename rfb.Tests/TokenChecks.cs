@@ -147,5 +147,14 @@ namespace rfb.Tests
       t.ShouldNotBeNull();
       t.Word.ShouldBeEqualTo("MakeFile");
     }
+
+    [Test]
+    public void ADashCanBeEscaped()
+    {
+      var handle = new TokenizerHandle(DataMother.GetFile("_scriptNeedingDashEscaping.txt"));
+      handle.FastForwardToLine(5);
+      var t = handle.ProcessWithToken<AnyToken>();
+      t["ZipFileName"].ShouldBeEqualTo("ber-$(currentTag).zip");
+    }
   }
 }

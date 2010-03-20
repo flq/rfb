@@ -61,13 +61,35 @@ namespace rfb.MsBuildTasks
         from o in output
          let matchingMembers = 
            (from m in membersToGet
-            let prop = o.Properties.Match(m).FirstOrDefault()
+            let prop = matchMember(o, m)
             where prop != null
             select new {prop.Name, prop.Value}).ToList()
          where matchingMembers.Count > 0
          select
            new TaskItem(matchingMembers[0].Value.ToString(),
-                        matchingMembers.Skip(1).ToDictionary(a => a.Name, a => a.Value));
+                        matchingMembers.ToDictionary(a => a.Name, a => a.Value));
+    }
+
+    private static Info matchMember(PSObject psObject, string member)
+    {
+      var property = psObject.Properties.Match(member).FirstOrDefault();
+      if (property != null)
+        return new Info {Name = property.Name, Value = property.Value};
+
+      //Try if captured item is a hashtable - then we do the same as powershell does, mapping the capture to a key
+      if (psObject.BaseObject is System.Collections.Hashtable)
+      {
+        var table = (System.Collections.Hashtable) psObject.BaseObject;
+        if (table.ContainsKey(member))
+          return new Info { Name = member, Value = table[member].ToString()}; //MSBuild only understands strings
+      }
+      return null;
+    }
+
+    private class Info
+    {
+      public string Name;
+      public object Value;
     }
   }
 }

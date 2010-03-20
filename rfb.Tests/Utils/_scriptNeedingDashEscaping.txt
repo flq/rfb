@@ -1,0 +1,5 @@
+﻿Project "Default"
+  
+  Target "Default"
+    $currentTag = v1.1
+    Zip -ZipFileName:ber\-$(currentTag).zip -Files:@(filesToZip)

@@ -73,5 +73,15 @@ namespace rfb.Tests
       t.Accept(vtor);
       vtor.VisitedItemGroupToken.ShouldBeEqualTo(2);
     }
+
+    [Test]
+    public void IssuesCausedByRfbBuildScript()
+    {
+      var t = "_rfbCopyFollowedByPSCall.txt".Tokenized();
+      var vtor = new AssertingTokenStreamVisitor();
+      t.Accept(vtor);
+      vtor.VisitedTargetToken.ShouldBeEqualTo(1);
+      vtor.VisitedPSScriptCallToken.ShouldBeEqualTo(1);
+    }
   }
 }

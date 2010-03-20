@@ -21,7 +21,7 @@ namespace rfb
         var logger = (ILogger) Activator.CreateInstance(setup.LoggerAsType);
         engine.RegisterLogger(logger);
       }
-      engine.RegisterLogger(new ConsoleLogger(LoggerVerbosity.Minimal));
+      engine.RegisterLogger(new ConsoleLogger(LoggerVerbosity.Normal));
     }
 
     public void Dispose()

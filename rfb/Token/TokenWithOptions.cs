@@ -9,7 +9,10 @@ namespace rfb.Token
   {
     protected readonly static Regex defaultStartWord = new Regex(@"^\s*(\w+?)(?=\s|$)", RegexOptions.Compiled);
     private readonly static Regex defaultOption = new Regex(@"""(.+?)(?<!\\)""", RegexOptions.Compiled);
-    private readonly static Regex optionFinder = new Regex(@"-(\w+?):(.+?)(?=-|$)", RegexOptions.Compiled);
+    //Dash followed by word, followed by double-dot, followed by x chars that stops
+    //before the next dash, but not if preceded by a backslash
+    private readonly static Regex optionFinder = new Regex(@"-(\w+?):(.+?)(?=(?<!\\)-|$)", RegexOptions.Compiled);
+
 
     protected TokenWithOptions()
     {
@@ -78,10 +81,11 @@ namespace rfb.Token
       if (tHandle.CurrentLine == null)
         return 0;
 
-      // Option syntax may appear behind a variable that captures PSScript output
+      // subsequent lines may not have anything before the first option written down
       if (!isAStartingWordOK && 
         (startWord.IsMatch(tHandle.CurrentLine) || 
-         KnownRegularExpressions.CapturingVariableMatch.IsMatch(tHandle.CurrentLine)))
+         KnownRegularExpressions.CapturingVariableMatch.IsMatch(tHandle.CurrentLine) ||
+         KnownRegularExpressions.ScriptCallMatch.IsMatch(tHandle.CurrentLine)))
         return 0;
 
       var matches = optionFinder.Matches(tHandle.CurrentLine);
@@ -89,7 +93,7 @@ namespace rfb.Token
       {
         if (m.Groups.Count != 3 && m.Groups.Count != 0)
           throw new ArgumentException("Syntax error while trying to parse options.");
-        Options.Add(m.Groups[1].Value, m.Groups[2].Value.TrimEnd(' '));
+        Options.Add(m.Groups[1].Value, m.Groups[2].Value.TrimEnd(' ').Replace("\\-", "-"));
       }
       return matches.Count;
     }

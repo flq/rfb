@@ -1,0 +1,24 @@
+﻿Project "Default" -Name:rfb build file for rfb
+  
+  Target "Clean"
+    MakeDir "out"
+ 
+  Target "Default" -Deps:Clean
+    MsBuild "rfb.sln" -Properties:Configuration=Release
+	  $currentTag <= GetGitTag
+	  Message "Current Git Tag: $(currentTag)"
+	  $binDir = rfb\bin\Release
+	  @sourceFiles = $(binDir)\rfb.exe;$(binDir)\rfb.exe.config;lib\System.Management.Automation.dll
+	  Copy -SourceFiles:@(sourceFiles) -DestinationFolder:out
+	  PS:Zip -dir:out -zipName:out\rfb-$(currentTag).zip
+	
+  PS:GetGitTag <<FIN
+    git describe
+  FIN
+  
+  PS:Zip <<END
+    param([string]$dir, [string]$zipName)
+	  $zipFile = (new-object -com shell.application).NameSpace($zipName)
+	  cd $dir
+	  dir | foreach { $zipFile.CopyHere($_.FullName) }
+  END

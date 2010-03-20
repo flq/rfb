@@ -65,7 +65,10 @@ namespace rfb
 
     public void Visit(ImportProjectToken token)
     {
-      // Need to think some here...
+      if (currentTarget != null)
+        throw new ArgumentException("Unexpected import project directive while in target context");
+      valueResolver.Normalize(token);
+      Project.AddNewImport(token["Project"],null);
     }
 
     public void Visit(BacktickToken token)

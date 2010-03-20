@@ -112,5 +112,17 @@ namespace rfb.Tests
       var msg = runner.Logger.LoggedMessages.Find(s => s.Contains("Inside the script block"));
       msg.ShouldNotBeNull();
     }
+
+    [Test]
+    public void ItemGroupUsage()
+    {
+      var runner = new ScriptRunner()
+        .SetFile("_scriptPowershellExampleGitUsage.txt")
+        .Run();
+
+      var msg = runner.Logger.LoggedMessages.Find(s => s.Contains("gitnumber"));
+      msg.ShouldNotBeNull();
+      msg.Length.ShouldBeGreaterThan(19); //That would be if the vars are empty
+    }
   }
 }

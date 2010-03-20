@@ -18,6 +18,7 @@ namespace rfb.Token
                  {
                    new ProjectToken(),
                    new TargetToken(),
+                   new ImportProjectToken(),
                    new PSExternalScriptToken(),
                    new PSInlineScriptToken(),
                    new UsingTaskToken(),

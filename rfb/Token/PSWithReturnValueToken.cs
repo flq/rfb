@@ -16,7 +16,7 @@ namespace rfb.Token
 
     protected override void withinHandle(TokenizerHandle tHandle)
     {
-      var typeOfOutput = tHandle.CurrentLine.TrimStart(' ').Substring(0, 1);
+      var typeOfOutput = tHandle.CurrentLine.TrimStart(' ', '\t').Substring(0, 1);
       if (typeOfOutput == "@")
         ValueType = PSScriptReturnValueType.ItemGroup;
       else if (typeOfOutput == "$")
